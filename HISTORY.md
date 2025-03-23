@@ -12,5 +12,6 @@
 - Fixed build issues by:
   1. Updated Android NDK version to 27.0.12077973 (required by the notifications package)
   2. Enabled Java 8 desugaring by adding `isCoreLibraryDesugaringEnabled = true` and the desugar dependency
+  3. Updated desugar_jdk_libs from 2.0.4 to 2.1.4 as required by flutter_local_notifications
 
 Current status: The project has the flutter_local_notifications package installed with necessary Android configuration fixes. Ready to implement notification functionality. 
