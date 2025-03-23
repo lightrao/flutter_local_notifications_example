@@ -46,7 +46,11 @@ class NotiService {
   }
 
   // show notification
-  Future<void> showNotification({int id = 0, String? title, String? body}) async {
+  Future<void> showNotification({
+    int id = 0,
+    String? title,
+    String? body,
+  }) async {
     return await notificationPlugin.show(
       id,
       title,
@@ -54,5 +58,4 @@ class NotiService {
       notificationDetails(),
     );
   }
-  
 }

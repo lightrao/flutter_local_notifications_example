@@ -14,4 +14,14 @@
   2. Enabled Java 8 desugaring by adding `isCoreLibraryDesugaringEnabled = true` and the desugar dependency
   3. Updated desugar_jdk_libs from 2.0.4 to 2.1.4 as required by flutter_local_notifications
 
-Current status: The project has the flutter_local_notifications package installed with necessary Android configuration fixes. Ready to implement notification functionality. 
+- Implemented local notifications functionality:
+  1. Created `noti_service.dart` with a service class to handle notifications setup and display
+  2. Created a simple `home_page.dart` with a button to trigger notifications
+  3. Updated `main.dart` to initialize notifications when the app starts
+
+- Configured iOS for notifications:
+  1. Modified AppDelegate.swift to import flutter_local_notifications
+  2. Added plugin registrant callback setup for notification actions
+  3. Set up UNUserNotificationCenter delegate for handling notifications when the app is in foreground
+
+Current status: The project has a working implementation of flutter_local_notifications for both Android and iOS. The app displays a simple UI with a button that sends a test notification when pressed. 

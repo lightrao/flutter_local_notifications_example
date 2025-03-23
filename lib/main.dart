@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications_example/noti_service.dart';
 import 'home_page.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   NotiService().initialize();
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),);
+      home: HomePage(),
+    );
   }
 }
