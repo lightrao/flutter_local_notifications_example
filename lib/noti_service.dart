@@ -2,7 +2,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class NotiService {
-  final notificationPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin _notificationPlugin = FlutterLocalNotificationsPlugin();
   bool _isInitialized = false;
   bool get isInitialized => _isInitialized;
 
@@ -29,7 +29,7 @@ class NotiService {
     );
 
     // finally initialize the plugin
-    await notificationPlugin.initialize(initializationSettings);
+    await _notificationPlugin.initialize(initializationSettings);
     _isInitialized = true;
   }
 
@@ -58,7 +58,7 @@ class NotiService {
   }
 
   // notification details setup
-  NotificationDetails notificationDetails() {
+  NotificationDetails _notificationDetails() {
     return const NotificationDetails(
       android: AndroidNotificationDetails(
         'daily_channel_id',
@@ -86,11 +86,11 @@ class NotiService {
     }
     
     // We have permission, show the notification
-    await notificationPlugin.show(
+    await _notificationPlugin.show(
       id,
       title,
       body,
-      notificationDetails(),
+      _notificationDetails(),
     );
     
     return true;

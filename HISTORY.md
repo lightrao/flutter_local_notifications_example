@@ -44,4 +44,9 @@
   2. Fixed method call to use the global openAppSettings function instead of calling it through Permission class
   3. Updated references in home_page.dart to use the renamed method
 
-Current status: The app now has fixed permission handling with the ability to properly open the system settings when permissions are permanently denied. This provides a complete user flow for handling notification permissions on both iOS and Android. 
+- Code refactoring and best practices:
+  1. Made internal methods and variables private in NotiService class
+  2. Changed notificationPlugin to _notificationPlugin (private variable)
+  3. Made notificationDetails method private as _notificationDetails
+
+Current status: The app now has a well-structured implementation with proper permission handling and follows Dart best practices for private/public API design. The notification functionality is working correctly on both iOS and Android platforms. 
