@@ -24,4 +24,24 @@
   2. Added plugin registrant callback setup for notification actions
   3. Set up UNUserNotificationCenter delegate for handling notifications when the app is in foreground
 
-Current status: The project has a working implementation of flutter_local_notifications for both Android and iOS. The app displays a simple UI with a button that sends a test notification when pressed. 
+- Added permission handling for notifications:
+  1. Added permission_handler package (version 11.4.0)
+  2. Updated AndroidManifest.xml to include POST_NOTIFICATIONS permission
+  3. Added NSUserNotificationsUsageDescription to Info.plist
+  4. Updated NotiService to check and request permissions before showing notifications
+  5. Redesigned HomePage with permission status indicator and request button
+  6. Added feedback to user when permissions are granted/denied
+
+- Improved permission handling:
+  1. Enhanced the permission request workflow to handle different permission states
+  2. Added detection for permanently denied permissions
+  3. Added an "Open Settings" button that appears when permissions are permanently denied
+  4. Improved the UI to clearly indicate the current permission state
+  5. Updated error messages to provide appropriate guidance based on permission status
+
+- Fixed permission-related issues:
+  1. Corrected the implementation of openAppSettings by renaming method to avoid naming conflict
+  2. Fixed method call to use the global openAppSettings function instead of calling it through Permission class
+  3. Updated references in home_page.dart to use the renamed method
+
+Current status: The app now has fixed permission handling with the ability to properly open the system settings when permissions are permanently denied. This provides a complete user flow for handling notification permissions on both iOS and Android. 
