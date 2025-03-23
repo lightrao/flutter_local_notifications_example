@@ -32,7 +32,7 @@ class NotiService {
   }
 
   // notification details setup
-  NotificationDetails notificationDetails() {
+  NotificationDetails _notificationDetails() {
     return const NotificationDetails(
       android: AndroidNotificationDetails(
         'daily_channel_id',
@@ -55,7 +55,7 @@ class NotiService {
       id,
       title,
       body,
-      notificationDetails(),
+      _notificationDetails(),
     );
   }
 }
