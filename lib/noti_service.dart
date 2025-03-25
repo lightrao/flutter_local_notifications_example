@@ -2,6 +2,15 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class NotiService {
+  // Singleton instance
+  static final NotiService _instance = NotiService._internal();
+  
+  // Factory constructor
+  factory NotiService() => _instance;
+  
+  // Private constructor
+  NotiService._internal();
+  
   final FlutterLocalNotificationsPlugin _notificationPlugin = FlutterLocalNotificationsPlugin();
   bool _isInitialized = false;
   bool get isInitialized => _isInitialized;
