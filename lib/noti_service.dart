@@ -96,34 +96,33 @@ class NotiService {
   }
 
   // show notification with permission check
-  Future<bool> showNotification({
-    int id = 0, 
-    String? title, 
-    String? body,
-    String? payload,
-  }) async {
-    // First check if we have permission
-    final hasPermission = await checkPermissions();
+  Future<bool> showNotification({int id = 0, String? title, String? body}) async {
+    try {
+      // First check if we have permission
+      final hasPermission = await checkPermissions();
     
-    if (!hasPermission) {
-      // Try to request permission if we don't have it
-      final permissionRequested = await requestPermissions();
-      if (!permissionRequested.isGranted) {
-        // User denied permission
-        return false;
+      if (!hasPermission) {
+        // Try to request permission if we don't have it
+        final permissionRequested = await requestPermissions();
+        if (!permissionRequested.isGranted) {
+          // User denied permission
+          return false;
+        }
       }
+    
+      // We have permission, show the notification
+      await _notificationPlugin.show(
+        id,
+        title,
+        body,
+        _notificationDetails(),
+      );
+    
+      return true;
+    } catch (e) {
+      print('Error showing notification: $e');
+      return false;
     }
-    
-    // We have permission, show the notification
-    await _notificationPlugin.show(
-      id,
-      title,
-      body,
-      _notificationDetails(),
-      payload: payload,
-    );
-    
-    return true;
   }
 
   Future<bool> scheduleNotification({
