@@ -38,8 +38,23 @@ class NotiService {
     );
 
     // finally initialize the plugin
-    await _notificationPlugin.initialize(initializationSettings);
+    await _notificationPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse response) {
+        // Handle notification tap
+        _handleNotificationTap(response);
+      },
+    );
     _isInitialized = true;
+  }
+
+  void _handleNotificationTap(NotificationResponse response) {
+    // Add logic to handle notification taps
+    // For example, navigate to a specific screen based on the payload
+    final payload = response.payload;
+    if (payload != null) {
+      // Process payload
+    }
   }
 
   // Request notification permissions
@@ -81,7 +96,12 @@ class NotiService {
   }
 
   // show notification with permission check
-  Future<bool> showNotification({int id = 0, String? title, String? body}) async {
+  Future<bool> showNotification({
+    int id = 0, 
+    String? title, 
+    String? body,
+    String? payload,
+  }) async {
     // First check if we have permission
     final hasPermission = await checkPermissions();
     
@@ -100,8 +120,50 @@ class NotiService {
       title,
       body,
       _notificationDetails(),
+      payload: payload,
     );
     
     return true;
+  }
+
+  Future<bool> scheduleNotification({
+    int id = 0,
+    String? title,
+    String? body,
+    required DateTime scheduledDate,
+    String? payload,
+  }) async {
+    final hasPermission = await checkPermissions();
+    
+    if (!hasPermission) {
+      final permissionRequested = await requestPermissions();
+      if (!permissionRequested.isGranted) {
+        return false;
+      }
+    }
+    
+    await _notificationPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      tz.TZDateTime.from(scheduledDate, tz.local),
+      _notificationDetails(),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation: 
+          UILocalNotificationDateInterpretation.absoluteTime,
+      payload: payload,
+    );
+    
+    return true;
+  }
+
+  // Cancel a specific notification
+  Future<void> cancelNotification(int id) async {
+    await _notificationPlugin.cancel(id);
+  }
+
+  // Cancel all notifications
+  Future<void> cancelAllNotifications() async {
+    await _notificationPlugin.cancelAll();
   }
 }
