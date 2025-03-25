@@ -50,3 +50,20 @@
   3. Made notificationDetails method private as _notificationDetails
 
 Current status: The app now has a well-structured implementation with proper permission handling and follows Dart best practices for private/public API design. The notification functionality is working correctly on both iOS and Android platforms. 
+
+## April 7, 2024
+- Fixed scheduled notifications implementation:
+  1. Added timezone package (version 0.10.0) to properly handle scheduled notifications across different timezones
+  2. Fixed the scheduleNotification method to use proper timezone handling
+  3. Added timezone initialization in the initialize method
+  4. Set default timezone to UTC (can be customized to user's timezone)
+  5. Wrapped the notification scheduling code in try-catch block for better error handling
+  6. Removed UILocalNotificationDateInterpretation parameter which was causing errors
+
+- Added macOS support:
+  1. Added macOS initialization settings in the initialize method
+  2. Updated NotificationDetails to include macOS notifications
+  3. Added special handling for permissions on macOS since permission_handler doesn't fully support macOS
+  4. Added Platform checks to use simplified permission handling on macOS
+
+Current status: The app now supports both immediate and scheduled notifications with proper timezone handling, making it more reliable for scheduling notifications at specific times. It also works on macOS in addition to iOS and Android. 
